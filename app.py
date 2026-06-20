@@ -66,7 +66,7 @@ with st.sidebar:
     api_endpoint = st.text_input(
         "API Endpoint",
         value="https://aravind5.app.n8n.cloud/webhook/churn-risk",
-        help="The n8n webhook endpoint"
+        help="The n8n webhook endpoint (requires internet connection)"
     )
 
     st.markdown("---")
@@ -126,7 +126,7 @@ with tab1:
                     response = requests.post(
                         api_endpoint,
                         json={"message": support_message},
-                        timeout=10
+                        timeout=5
                     )
 
                     if response.status_code == 200:
