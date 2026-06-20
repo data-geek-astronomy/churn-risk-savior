@@ -1,0 +1,12 @@
+title: "🚨 AI Customer Churn Risk Savior"
+description: "Production-grade AI agent for real-time churn detection & automated escalation"
+emoji: "🚀"
+colorFrom: "red"
+colorTo: "orange"
+sdk: "streamlit"
+sdk_version: "1.28.0"
+app_file: "app.py"
+python_version: "3.9"
+header: "mini"
+fullWidth: true
+allowFramedTitle: true

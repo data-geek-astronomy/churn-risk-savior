@@ -1,0 +1,22 @@
+🚀 GITHUB PUSH GUIDE
+
+1. Create a new GitHub repo at: https://github.com/new
+   - Repository name: churn-risk-savior
+   - Description: AI Customer Churn Risk Savior - Production-grade churn detection & escalation
+   - Make it PUBLIC
+   - DO NOT initialize with README (we have one)
+   - Click "Create repository"
+
+2. Copy the repo URL (should look like):
+   https://github.com/yourusername/churn-risk-savior.git
+
+3. Run these commands:
+   
+   cd ~/churn-risk-savior-portfolio
+   git branch -M main
+   git remote add origin https://github.com/yourusername/churn-risk-savior.git
+   git push -u origin main
+
+4. Verify at: https://github.com/yourusername/churn-risk-savior
+
+Done! Your portfolio is now on GitHub ✅
