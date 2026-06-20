@@ -62,9 +62,7 @@ venv.bak/
 *~
 .DS_Store
 
-# Streamlit
-.streamlit/
-*.streamlit
+# Streamlit (keep config.toml tracked for deployment)
 
 # n8n
 n8n-data/

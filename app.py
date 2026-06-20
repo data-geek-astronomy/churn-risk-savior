@@ -7,8 +7,8 @@ import time
 st.set_page_config(
     page_title="🚀 AI Customer Churn Risk Savior",
     page_icon="🚨",
-    layout="wide",
-    initial_sidebar_state="expanded"
+    layout="centered",
+    initial_sidebar_state="collapsed"
 )
 
 # Styling
