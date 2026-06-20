@@ -1,2 +1,2 @@
-streamlit==1.28.0
-requests==2.31.0
+# No dependencies required - pure HTML + Python stdlib
+# For HF Spaces: uses built-in Python HTTP server

@@ -1,3 +1,14 @@
+---
+title: "🚨 AI Customer Churn Risk Savior"
+emoji: "🚀"
+colorFrom: "red"
+colorTo: "yellow"
+sdk: "docker"
+app_file: "app_simple.py"
+pinned: false
+python_version: "3.9"
+---
+
 # 🚀 AI Customer Churn Risk Savior
 
 **Production-grade AI agent that detects customer churn risk in real-time, automatically escalates HIGH-risk cases, and prevents revenue loss through intelligent triage.**
@@ -129,14 +140,14 @@ curl -X POST https://aravind5.app.n8n.cloud/webhook/churn-risk \
 4. **Activate the workflow**
 5. **Test the webhook**
 
-### Option 3: Run Local Python Version
+### Option 3: Run Local Web Demo
 
 ```bash
-pip install -r requirements.txt
-python app.py
+# No dependencies needed! Pure Python + HTML
+python app_simple.py
 ```
 
-Then POST to `http://localhost:5000/analyze`
+Then open `http://localhost:7860` in your browser
 
 ---
 

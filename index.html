@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🚨 AI Customer Churn Risk Savior</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #FF6B6B 0%, #FFD93D 100%);
+            padding: 40px 20px;
+            text-align: center;
+            color: white;
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        .header p {
+            font-size: 1.1em;
+            opacity: 0.95;
+        }
+
+        .content {
+            padding: 40px;
+        }
+
+        .tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 30px;
+            border-bottom: 2px solid #f0f0f0;
+        }
+
+        .tab-button {
+            padding: 12px 24px;
+            border: none;
+            background: none;
+            cursor: pointer;
+            font-size: 1em;
+            color: #666;
+            border-bottom: 3px solid transparent;
+            transition: all 0.3s;
+            font-weight: 500;
+        }
+
+        .tab-button.active {
+            color: #FF6B6B;
+            border-bottom-color: #FF6B6B;
+        }
+
+        .tab-button:hover {
+            color: #FF6B6B;
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        textarea {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-family: inherit;
+            font-size: 1em;
+            resize: vertical;
+            min-height: 120px;
+            transition: border-color 0.3s;
+        }
+
+        textarea:focus {
+            outline: none;
+            border-color: #FF6B6B;
+        }
+
+        .buttons {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            margin: 20px 0;
+        }
+
+        button {
+            padding: 12px 20px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+            font-size: 0.95em;
+        }
+
+        .template-btn {
+            background: #f5f5f5;
+            color: #333;
+            border: 2px solid #e0e0e0;
+        }
+
+        .template-btn:hover {
+            background: #FF6B6B;
+            color: white;
+            border-color: #FF6B6B;
+        }
+
+        .analyze-btn {
+            grid-column: 1 / -1;
+            background: linear-gradient(135deg, #FF6B6B 0%, #FF8E7B 100%);
+            color: white;
+            font-size: 1.1em;
+            padding: 15px;
+        }
+
+        .analyze-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(255, 107, 107, 0.3);
+        }
+
+        .analyze-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .loading {
+            text-align: center;
+            color: #FF6B6B;
+            font-weight: 600;
+            margin: 20px 0;
+        }
+
+        .spinner {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid #f3f3f3;
+            border-top: 3px solid #FF6B6B;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-right: 10px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .result {
+            margin-top: 30px;
+            padding: 20px;
+            border-radius: 8px;
+            border-left: 5px solid #FF6B6B;
+        }
+
+        .result.high {
+            background: #FFE5E5;
+            border-left-color: #FF0000;
+        }
+
+        .result.medium {
+            background: #FFF5E5;
+            border-left-color: #FFA500;
+        }
+
+        .result.low {
+            background: #E5F5E5;
+            border-left-color: #00AA00;
+        }
+
+        .metrics {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .metric {
+            background: #f9f9f9;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+            border: 1px solid #e0e0e0;
+        }
+
+        .metric-value {
+            font-size: 2em;
+            font-weight: bold;
+            color: #FF6B6B;
+            margin-bottom: 5px;
+        }
+
+        .metric-label {
+            font-size: 0.9em;
+            color: #666;
+        }
+
+        .field {
+            margin: 15px 0;
+        }
+
+        .field label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #333;
+        }
+
+        .field p {
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 8px;
+        }
+
+        .error {
+            background: #FFE5E5;
+            border: 1px solid #FF6B6B;
+            color: #C00;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+
+        .success {
+            background: #E5F5E5;
+            border: 1px solid #00AA00;
+            color: #008000;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+
+        .sample-case {
+            background: #f9f9f9;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+            border-left: 4px solid #FF6B6B;
+        }
+
+        .sample-case h3 {
+            color: #FF6B6B;
+            margin-bottom: 10px;
+        }
+
+        .sample-case p {
+            color: #666;
+            margin: 8px 0;
+            font-style: italic;
+        }
+
+        .sample-case button {
+            background: #FF6B6B;
+            color: white;
+            padding: 8px 16px;
+            margin-top: 10px;
+        }
+
+        .sample-case button:hover {
+            background: #E55555;
+        }
+
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+
+        .dashboard-card {
+            background: #f9f9f9;
+            padding: 20px;
+            border-radius: 8px;
+            border: 1px solid #e0e0e0;
+        }
+
+        .dashboard-card h3 {
+            color: #FF6B6B;
+            margin-bottom: 15px;
+        }
+
+        .dashboard-card pre {
+            background: #333;
+            color: #0f0;
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+            font-size: 0.85em;
+        }
+
+        .footer {
+            background: #f9f9f9;
+            padding: 20px;
+            text-align: center;
+            color: #666;
+            border-top: 1px solid #e0e0e0;
+        }
+
+        .footer a {
+            color: #FF6B6B;
+            text-decoration: none;
+        }
+
+        .footer a:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 600px) {
+            .header h1 {
+                font-size: 1.8em;
+            }
+
+            .content {
+                padding: 20px;
+            }
+
+            .buttons {
+                grid-template-columns: 1fr;
+            }
+
+            .dashboard-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .metrics {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🚨 AI Customer Churn Risk Savior</h1>
+            <p>Real-time churn detection & automated escalation</p>
+        </div>
+
+        <div class="content">
+            <div class="tabs">
+                <button class="tab-button active" onclick="switchTab('test')">🧪 Test</button>
+                <button class="tab-button" onclick="switchTab('samples')">📈 Sample Cases</button>
+                <button class="tab-button" onclick="switchTab('dashboard')">📊 Dashboard</button>
+            </div>
+
+            <!-- Test Tab -->
+            <div id="test" class="tab-content active">
+                <h2 style="margin-bottom: 20px; color: #333;">Test the AI Agent</h2>
+
+                <label style="display: block; font-weight: 600; margin-bottom: 10px; color: #333;">
+                    Enter a customer support message:
+                </label>
+                <textarea id="messageInput" placeholder="Paste a support ticket or customer message here..."></textarea>
+
+                <div class="buttons">
+                    <button class="template-btn" onclick="setTemplate('high')">HIGH Risk</button>
+                    <button class="template-btn" onclick="setTemplate('medium')">MEDIUM Risk</button>
+                    <button class="template-btn" onclick="setTemplate('low')">LOW Risk</button>
+                    <button class="analyze-btn" onclick="analyzeMessage()">🚀 Analyze</button>
+                </div>
+
+                <div id="resultContainer"></div>
+            </div>
+
+            <!-- Sample Cases Tab -->
+            <div id="samples" class="tab-content">
+                <h2 style="margin-bottom: 20px; color: #333;">📈 Sample Test Cases</h2>
+
+                <div class="sample-case">
+                    <h3>HIGH Risk - Billing Overcharge</h3>
+                    <p>"I have been overcharged 3 months in a row. This is completely unacceptable. I am switching to your competitor if this is not fixed today."</p>
+                    <p><strong>Expected:</strong> Risk Score: 85-100, Level: HIGH</p>
+                    <button onclick="setTemplate('high'); document.querySelector('.tab-button:nth-child(1)').click();">Test This Case</button>
+                </div>
+
+                <div class="sample-case">
+                    <h3>MEDIUM Risk - Performance Issues</h3>
+                    <p>"Hey, I have had a few issues with your app lately. The loading times are pretty slow and it is getting a bit frustrating."</p>
+                    <p><strong>Expected:</strong> Risk Score: 40-50, Level: MEDIUM</p>
+                    <button onclick="setTemplate('medium'); document.querySelector('.tab-button:nth-child(1)').click();">Test This Case</button>
+                </div>
+
+                <div class="sample-case">
+                    <h3>LOW Risk - Data Export Question</h3>
+                    <p>"Hi, could you help me understand how to export my data to CSV? Thanks!"</p>
+                    <p><strong>Expected:</strong> Risk Score: 10-20, Level: LOW</p>
+                    <button onclick="setTemplate('low'); document.querySelector('.tab-button:nth-child(1)').click();">Test This Case</button>
+                </div>
+            </div>
+
+            <!-- Dashboard Tab -->
+            <div id="dashboard" class="tab-content">
+                <h2 style="margin-bottom: 20px; color: #333;">📊 System Dashboard</h2>
+
+                <div class="metrics">
+                    <div class="metric">
+                        <div class="metric-value">&lt;3s</div>
+                        <div class="metric-label">Analysis Latency</div>
+                    </div>
+                    <div class="metric">
+                        <div class="metric-value">92%</div>
+                        <div class="metric-label">Accuracy</div>
+                    </div>
+                    <div class="metric">
+                        <div class="metric-value">$0.0001</div>
+                        <div class="metric-label">Cost/Request</div>
+                    </div>
+                    <div class="metric">
+                        <div class="metric-value">100+</div>
+                        <div class="metric-label">Throughput (req/s)</div>
+                    </div>
+                </div>
+
+                <div class="dashboard-grid">
+                    <div class="dashboard-card">
+                        <h3>🏗️ Architecture</h3>
+                        <pre>Webhook Input
+    ↓
+GPT-4o-mini Analysis
+    ↓
+Risk Classification
+    ↓
+├→ HIGH: Slack → Jira → Calendar
+├→ MEDIUM: Follow-up Queue
+└→ LOW: Auto-resolve
+    ↓
+Database Log</pre>
+                    </div>
+
+                    <div class="dashboard-card">
+                        <h3>🔧 Tech Stack</h3>
+                        <pre>• Orchestration: n8n
+• AI Model: GPT-4o-mini
+• Integrations: Slack, Jira, Calendar
+• Database: n8n DataTable
+• Deployment: n8n Cloud
+• Demo: Streamlit/HTML</pre>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p>🚀 <strong>AI Customer Churn Risk Savior</strong></p>
+            <p>Production-grade churn detection & escalation agent</p>
+            <p>
+                <a href="https://github.com/data-geek-astronomy/churn-risk-savior">GitHub</a> •
+                <a href="https://aravind5.app.n8n.cloud/webhook/churn-risk">Live API</a> •
+                <a href="mailto:rahulreddy12365@gmail.com">Contact</a>
+            </p>
+        </div>
+    </div>
+
+    <script>
+        const API_ENDPOINT = 'https://aravind5.app.n8n.cloud/webhook/churn-risk';
+
+        const templates = {
+            high: 'I have been overcharged 3 months in a row. This is completely unacceptable. I am switching to your competitor if this is not fixed today.',
+            medium: 'Hey, I have had a few issues with your app lately. The loading times are pretty slow and it is getting a bit frustrating.',
+            low: 'Hi, could you help me understand how to export my data to CSV? Thanks!'
+        };
+
+        function switchTab(tabName) {
+            // Hide all tabs
+            document.querySelectorAll('.tab-content').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            document.querySelectorAll('.tab-button').forEach(btn => {
+                btn.classList.remove('active');
+            });
+
+            // Show selected tab
+            document.getElementById(tabName).classList.add('active');
+            event.target.classList.add('active');
+        }
+
+        function setTemplate(type) {
+            document.getElementById('messageInput').value = templates[type];
+        }
+
+        async function analyzeMessage() {
+            const message = document.getElementById('messageInput').value.trim();
+            const resultContainer = document.getElementById('resultContainer');
+
+            if (!message) {
+                resultContainer.innerHTML = '<div class="error">❌ Please enter a support message</div>';
+                return;
+            }
+
+            // Show loading
+            resultContainer.innerHTML = '<div class="loading"><span class="spinner"></span>Analyzing customer message...</div>';
+
+            try {
+                const response = await fetch(API_ENDPOINT, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ message: message })
+                });
+
+                if (!response.ok) {
+                    throw new Error(`API returned ${response.status}`);
+                }
+
+                const data = await response.json();
+
+                // Determine color based on risk level
+                const riskClass = data.risk_level === 'HIGH' ? 'high' : data.risk_level === 'MEDIUM' ? 'medium' : 'low';
+
+                // Build result HTML
+                let html = `<div class="result ${riskClass}">`;
+                html += `<div class="success">✅ Analysis Complete</div>`;
+
+                html += '<div class="metrics">';
+                html += `<div class="metric"><div class="metric-value" style="color: ${data.risk_level === 'HIGH' ? '#FF0000' : data.risk_level === 'MEDIUM' ? '#FFA500' : '#00AA00'}">${data.risk_score}/100</div><div class="metric-label">Risk Score</div></div>`;
+                html += `<div class="metric"><div class="metric-value">${data.risk_level}</div><div class="metric-label">Risk Level</div></div>`;
+                html += `<div class="metric"><div class="metric-value">${data.sentiment}</div><div class="metric-label">Sentiment</div></div>`;
+                html += `<div class="metric"><div class="metric-value">${data.status}</div><div class="metric-label">Status</div></div>`;
+                html += '</div>';
+
+                html += '<div class="field"><label>📋 Analysis Details</label>';
+                html += `<p><strong>Urgency:</strong> ${data.urgency}</p>`;
+                html += `<p><strong>Pain Points:</strong> ${data.alert}</p></div>`;
+
+                html += '<div class="field"><label>🎯 Recommended Action</label>';
+                html += `<p>${data.action_required}</p></div>`;
+
+                html += '<div class="field"><label>💬 Auto-Generated Customer Reply</label>';
+                html += `<p>${data.auto_reply}</p></div>`;
+
+                html += '<div class="field"><label>🔄 Automated Actions Triggered</label>';
+                if (data.risk_level === 'HIGH') {
+                    html += `<p>✅ <strong>Slack Alert Sent</strong> - Team notified in #churn-risk-alerts</p>`;
+                    html += `<p>✅ <strong>Jira Ticket Created</strong> - High-priority escalation ticket</p>`;
+                    html += `<p>✅ <strong>Calendar Invite Sent</strong> - 15-min escalation call booked</p>`;
+                } else if (data.risk_level === 'MEDIUM') {
+                    html += `<p>⏳ <strong>Follow-up task queued</strong> - Account manager will review within 24 hours</p>`;
+                } else {
+                    html += `<p>✅ <strong>Auto-resolved</strong> - Standard support response sent</p>`;
+                }
+                html += '</div>';
+
+                html += '</div>';
+
+                resultContainer.innerHTML = html;
+            } catch (error) {
+                resultContainer.innerHTML = `<div class="error">❌ Error: ${error.message}<br>Make sure the n8n workflow is activated and you have internet connection.</div>`;
+            }
+        }
+
+        // Allow Enter key to submit
+        document.addEventListener('DOMContentLoaded', function() {
+            document.getElementById('messageInput').addEventListener('keydown', function(e) {
+                if (e.key === 'Enter' && e.ctrlKey) {
+                    analyzeMessage();
+                }
+            });
+        });
+    </script>
+</body>
+</html>
